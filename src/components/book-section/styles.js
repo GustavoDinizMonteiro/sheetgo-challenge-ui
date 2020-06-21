@@ -21,6 +21,7 @@ export const Category = styled.p`
   color: rgba(0, 0, 0, 0.7);
   text-transform: capitalize;
   font-weight: bold;
+  cursor: pointer;
 `
 
 export const Card = styled.div`

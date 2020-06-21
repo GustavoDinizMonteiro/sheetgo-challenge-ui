@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { actions as books } from '../../actions/book'
 import { actions as categories } from '../../actions/category'
 import BookSection from '../../components/book-section'
+import { Back } from './styles'
 
 class Home extends React.Component {
   async componentDidMount() {
@@ -15,16 +16,31 @@ class Home extends React.Component {
     }
   }
 
+  get categoryId() {
+    return this.props.match.params.id
+  }
+
+  get categories() {
+    const categories = [{ id: 0 }].concat(this.props.categories.data)
+    if (this.categoryId) 
+      return categories.filter(category => category.id === parseFloat(this.categoryId))
+    return categories
+  }
+
   render() {
     const { data } = this.props.books
-    const categories = [{ id: -1 }].concat(this.props.categories.data)
     return (
-      <div>
-        { categories.filter(category => data[category.id]).map(category => (
+      <React.Fragment>
+        { this.categoryId && 
+          <Back onClick={() => this.props.history.push('/')}>
+            ← Voltar
+          </Back>
+        }
+        { this.categories.filter(category => data[category.id]).map(category => (
           <BookSection key={category.id} books={data[category.id]}
-           categoryName={category.name}/>
+           categoryName={category.name} categoryId={category.id}/>
         ))}
-      </div>
+      </React.Fragment>
     )
   }
 }

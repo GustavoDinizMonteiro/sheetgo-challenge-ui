@@ -7,6 +7,7 @@ import BookSection from '../../components/book-section'
 import { Back } from './styles'
 
 class Home extends React.Component {
+  state = { sort: 0 }
   async componentDidMount() {
     try {
       await this.props.dispatch(books.getBooks())
@@ -36,8 +37,18 @@ class Home extends React.Component {
             ← Voltar
           </Back>
         }
-        { this.categories.filter(category => data[category.id]).map(category => (
-          <BookSection key={category.id} books={data[category.id]}
+        <select value={this.state.sort} onChange={event => this.setState({ sort: event.target.value })}>
+          <option value={0}>A - Z</option>
+          <option value={1}>Z - A</option>
+          <option value={2}>criação &uarr;</option>
+          <option value={3}>criação &darr;</option>
+        </select>
+        <button>
+          Criar novo
+        </button>
+        { this.categories.filter(category => data[category.id])
+          .sort().map(category => (
+          <BookSection key={category.id} books={data[category.id]} sort={this.state.sort}
            categoryName={category.name} categoryId={category.id}/>
         ))}
       </React.Fragment>

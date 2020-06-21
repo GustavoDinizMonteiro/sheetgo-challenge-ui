@@ -3,7 +3,14 @@ import { useHistory } from 'react-router-dom'
 
 import { Container, Card, Title, Author, Category } from './styles'
 
-const BookSection = ({ categoryId, categoryName, books }) => {
+const compareMap = [
+  (a, b) => a.title.localeCompare(b.title),
+  (a, b) => b.title.localeCompare(a.title),
+  (a, b) => a.id - b.id,
+  (a, b) => b.id - a.id,
+]
+
+const BookSection = ({ categoryId, categoryName, books, sort }) => {
   let history = useHistory()
   return (
     <React.Fragment>
@@ -11,7 +18,7 @@ const BookSection = ({ categoryId, categoryName, books }) => {
         {categoryName}
       </Category>
       <Container>
-        { books.map(book => (
+        { books.sort(compareMap[sort]).map(book => (
           <Card onClick={() => history.push(`/book/${book.id}`)}>
             <Title>{book.title}</Title>
             <Author>{book.author}</Author>

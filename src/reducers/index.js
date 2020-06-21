@@ -1,8 +1,9 @@
 import thunk from 'redux-thunk'
 import books from './books'
+import categories from './categories'
 import { applyMiddleware, createStore, combineReducers } from 'redux'
 
-const root = combineReducers({ books })
+const root = combineReducers({ books, categories })
 
 const middleware = [thunk]
 

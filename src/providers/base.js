@@ -6,6 +6,7 @@ if (local) {
     { 
       id: 1,
       title: 'O Cão dos Baskervilles',
+      description: 'Nesse caso, o detetive e seu fiel parceiro Watson investigam a morte do Sir Charles Baskerville, um milionário inglês achado morto em um pântano próximo de seu lar. Conta a lenda que Charles havia sido assassinado por um cão que assombrava a região, conhecido por matar gerações da família Baskerville. A causa mais provável pela morte de Charles, no entanto, seria um ataque cardíaco.',
       author: 'Arthur Conan Doyle',
       deleted: false,
       timestamp: new Date(),

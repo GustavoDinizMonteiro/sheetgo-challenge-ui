@@ -6,9 +6,16 @@ const webProvider = {
 }
 
 const localProvider = {
-  list: async() => ({
-    data: JSON.parse(localStorage.getItem('books'))
-  })
+  list: async() => {
+    const books = JSON.parse(localStorage.getItem('books'))
+    const categories = JSON.parse(localStorage.getItem('categories'))
+    return {
+      data: books.map(book => ({
+        ...book,
+        category: categories.find(ctg => ctg.id === book.category_id)
+      }))
+    }
+  }
 }
 
 const provider = local ? localProvider: webProvider

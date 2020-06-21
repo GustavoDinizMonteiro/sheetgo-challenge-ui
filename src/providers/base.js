@@ -10,7 +10,22 @@ if (local) {
       author: 'Arthur Conan Doyle',
       deleted: false,
       timestamp: new Date(),
-      category_id: 1
+      category_id: 1,
+      comments: [{
+        id: 1,
+        body: 'Muito bom',
+        author: 'Gustavo Monteiro',
+        deleted: false,
+        timestamp: new Date(),
+      },
+      {
+        id: 2,
+        body: 'Maravilhoso!!!',
+        author: 'Gustavo Monteiro',
+        deleted: false,
+        timestamp: new Date(),
+      }
+      ]
     },
     { 
       id: 2,

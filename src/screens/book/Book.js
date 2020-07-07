@@ -32,14 +32,18 @@ class Book extends React.Component {
     }
   }
 
+  renderBack = () => (
+    <Back onClick={() => this.props.history.push('/')}>
+      ← Voltar
+    </Back>
+  )
+
   render() {
     const { book } = this.props
     if (!book) {
       return (
         <React.Fragment>
-          <Back onClick={() => this.props.history.push('/')}>
-            ← Voltar
-          </Back>
+          {this.renderBack()}
           <p>Livro nao existente</p>
         </React.Fragment>
       )
@@ -47,9 +51,7 @@ class Book extends React.Component {
     const getCategory = category => category ? category.name: 'Sem Categoria'
     return (
       <div>
-        <Back onClick={() => this.props.history.push('/')}>
-          ← Voltar
-        </Back>
+        {this.renderBack()}
         <Title>{book.title}</Title>
         <Row>
           <Label>

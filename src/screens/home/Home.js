@@ -7,7 +7,7 @@ import BookSection from '../../components/book-section'
 import { Back } from './styles'
 
 class Home extends React.Component {
-  state = { sort: 0 }
+  state = { sort: 0, search: '' }
   async componentDidMount() {
     try {
       await this.props.dispatch(books.getBooks())
@@ -28,8 +28,26 @@ class Home extends React.Component {
     return categories
   }
 
+  filter = data => {
+    const { search } = this.state
+    if (!search) return data
+    return data.filter(book => {
+      const { title, author } = book
+      const key = search.trim().toLowerCase()
+      return title.toLowerCase().includes(key) ||
+        author.toLowerCase().includes(key)
+    })
+  }
+
+  onChange = event => {
+    event.preventDefault()
+    const { name, value } = event.target
+    this.setState({ [name]: value })
+  }
+
   render() {
     const { data } = this.props.books
+    const { sort, search } = this.state
     return (
       <React.Fragment>
         { this.categoryId && 
@@ -37,7 +55,7 @@ class Home extends React.Component {
             ← Voltar
           </Back>
         }
-        <select value={this.state.sort} onChange={event => this.setState({ sort: event.target.value })}>
+        <select value={sort} name='sort' onChange={this.onChange}>
           <option value={0}>A - Z</option>
           <option value={1}>Z - A</option>
           <option value={2}>criação &uarr;</option>
@@ -46,9 +64,11 @@ class Home extends React.Component {
         <button>
           Criar novo
         </button>
+        <input value={search} name='search' onChange={this.onChange}
+          placeholder='Procure por nome ou por author'/>
         { this.categories.filter(category => data[category.id])
           .sort().map(category => (
-          <BookSection key={category.id} books={data[category.id]} sort={this.state.sort}
+          <BookSection key={category.id} books={this.filter(data[category.id])} sort={this.state.sort}
            categoryName={category.name} categoryId={category.id}/>
         ))}
       </React.Fragment>

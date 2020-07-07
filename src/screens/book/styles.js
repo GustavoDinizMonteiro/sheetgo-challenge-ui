@@ -6,6 +6,7 @@ export const Back = styled.button`
   font-weight: bold;
   color: #ec6611;
   border: none;
+  cursor: pointer;
 `
 
 export const Title = styled.p`

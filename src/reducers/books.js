@@ -9,7 +9,7 @@ const books = (state = { data: {}, items: {} }, action) => {
     case states.getAll.success:
       return { 
         ...state, 
-        data: groupBy(action.data, book => book.category_id),
+        data: groupBy(action.data, book => book.category_id || 0),
         items: groupBy(action.data, book => book.id) 
       }
     

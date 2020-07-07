@@ -34,6 +34,7 @@ export const Card = styled.div`
   padding: 10px; 
   width: 200px;
   margin: 0px 30px 20px 0px;
+  cursor: pointer;
 `
 
 export const Title = styled.p`

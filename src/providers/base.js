@@ -34,7 +34,7 @@ if (local) {
       deleted: false,
       comments: [],
       timestamp: new Date(),
-      category_id: 2
+      category_id: 1
     },
   ]))
   localStorage.setItem('categories', JSON.stringify([

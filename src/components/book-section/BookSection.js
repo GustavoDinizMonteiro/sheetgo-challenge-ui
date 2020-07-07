@@ -19,7 +19,7 @@ const BookSection = ({ categoryId, categoryName, books, sort }) => {
       </Category>
       <Container>
         { books.sort(compareMap[sort]).map(book => (
-          <Card onClick={() => history.push(`/book/${book.id}`)}>
+          <Card key={book.id} onClick={() => history.push(`/book/${book.id}`)}>
             <Title>{book.title}</Title>
             <Author>{book.author}</Author>
           </Card>

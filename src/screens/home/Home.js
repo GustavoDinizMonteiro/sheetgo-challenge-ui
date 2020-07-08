@@ -74,6 +74,9 @@ class Home extends React.Component {
       const body = { author, category_id: parseInt(category), description, title }
       await this.props.dispatch(books.createBook(body))
       this.toggle()
+      this.setState({
+        newBook: { author: '', category: null, description: '', title: '' }
+      })
     } catch (err) {
       console.warn(err)
     }

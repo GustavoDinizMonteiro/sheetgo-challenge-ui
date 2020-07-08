@@ -11,5 +11,9 @@ export default {
   createBook: {
     start: 'CREATE_BOOK_START',
     failure: 'CREATE_BOOK_FAILURE'
+  },
+  updateBook: {
+    start: 'UPDATE_BOOK_START',
+    failure: 'UPDATE_BOOK_FAILURE'
   }
 }

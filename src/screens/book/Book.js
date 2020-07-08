@@ -4,9 +4,14 @@ import { connect } from 'react-redux'
 import { actions as books } from '../../actions/book'
 import { actions as categories } from '../../actions/category'
 import { Back, Title, Label, Description, Row, CommentLabel, CommentAuthor, Comment, CommentInput } from './styles'
+import BookModal from 'components/book-modal'
 
 class Book extends React.Component {
-  state = { comment: '' }
+  state = { 
+    comment: '', 
+    showModal: false,
+    edition: {}
+  }
 
   async componentDidMount() {
     try {
@@ -38,8 +43,38 @@ class Book extends React.Component {
     </Back>
   )
 
+  toggle = () => this.setState(state => ({ showModal: !state.showModal }))
+
+  edit = () => {
+    const { book } = this.props
+    this.setState({ 
+      edition: { ...book, category: book.category_id? book.category_id: 0 }
+    }, this.toggle)
+  }
+
+  onChangeEdit = event => {
+    event.preventDefault()
+    const { name, value } = event.target
+    const { edition } = this.state
+    this.setState({ 
+      edition: { ...edition, [name]: value }
+    })
+  }
+
+  update = async() => {
+    try {
+      const { edition: body } = this.state
+      await this.props.dispatch(books.updateBook(body))
+      this.toggle()
+      this.setState({ edition: {} })
+    } catch (err) {
+      console.warn(err)
+    }
+  }
+
   render() {
     const { book } = this.props
+    const { showModal, edition } = this.state
     if (!book) {
       return (
         <React.Fragment>
@@ -53,6 +88,9 @@ class Book extends React.Component {
       <div>
         {this.renderBack()}
         <Title>{book.title}</Title>
+        <button onClick={() => this.edit()}>editar</button>
+        <BookModal {...edition} onChange={this.onChangeEdit}
+          show={showModal} toggle={this.toggle} submit={this.update}/>
         <Row>
           <Label>
             {book.author} &nbsp;

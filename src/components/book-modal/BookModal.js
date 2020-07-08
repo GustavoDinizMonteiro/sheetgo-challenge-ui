@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, ModalHeader, ModalBody, Form, Input, FormGroup, Button } from 'reactstrap'
 import { connect } from 'react-redux'
 
-const BookModal = ({ show, toggle, title, description, author, category, onChange, submit, categories }) => {
+const BookModal = ({ show, toggle, title='', description='', author='', category, onChange, submit, categories }) => {
   const disabled = !title.trim() || !description.trim() || !author.trim()
   return (
     <Modal isOpen={show} toggle={toggle}>
@@ -12,7 +12,7 @@ const BookModal = ({ show, toggle, title, description, author, category, onChang
           <FormGroup>            
             <Input placeholder='Adicione um titulo'
               name='title' value={title} onChange={onChange}/>
-            <Input placeholder='Adicione uma descrição'
+            <Input type='textarea' placeholder='Adicione uma descrição'
               name='description' value={description} onChange={onChange}/>
             <Input placeholder='Adicione o autor'
               name='author' value={author} onChange={onChange}/>

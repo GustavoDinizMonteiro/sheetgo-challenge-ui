@@ -31,6 +31,7 @@ if (local) {
       id: 2,
       title: 'O Sinal dos Quatro',
       author: 'Arthur Conan Doyle',
+      description: '',
       deleted: false,
       comments: [],
       timestamp: new Date(),

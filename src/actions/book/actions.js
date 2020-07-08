@@ -19,6 +19,22 @@ export default {
     }
   },
 
+  updateBook: book => {
+    return async(dispatch) => {
+      const start = () => ({ type: states.updateBook.start })
+      const success = data => ({ type: states.getAll.success, data })
+      const failure = err => ({ type: states.updateBook.failure, err })
+      
+      try {
+        dispatch(start())
+        const { data } = await provider.update(book)
+        dispatch(success(data))
+      } catch (err) {
+        dispatch(failure(err))
+      }
+    }
+  },
+
   getBooks: () => {
     return async(dispatch) => {
       const start = () => ({ type: states.getAll.start })

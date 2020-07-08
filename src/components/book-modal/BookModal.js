@@ -21,7 +21,7 @@ const BookModal = ({ show, toggle, title, description, author, category, onChang
             <Input type='select' name='category' value={category} onChange={onChange}>
               <option>Sem categoria</option>
               { categories.data.map(opt => (
-                <option key={opt.id}>{opt.name}</option>
+                <option key={opt.id} value={opt.id}>{opt.name}</option>
               ))}
             </Input>
           </FormGroup>

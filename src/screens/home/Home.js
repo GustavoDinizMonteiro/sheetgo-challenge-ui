@@ -69,18 +69,21 @@ class Home extends React.Component {
   submit = async() => {
     try {
       const { 
-        newBook: { author, category: category_id, description, title } 
+        newBook: { author, category, description, title } 
       } = this.state
-      const body = { author, category_id, description, title }
+      const body = { author, category_id: parseInt(category), description, title }
+      await this.props.dispatch(books.createBook(body))
+      this.toggle()
     } catch (err) {
       console.warn(err)
     }
   }
 
+  toggle = () => this.setState(state => ({ showModal: !state.showModal }))
+
   render() {
     const { data } = this.props.books
     const { sort, search, newBook, showModal } = this.state
-    const toggle = () => this.setState({ showModal: !showModal })
     return (
       <React.Fragment>
         { this.categoryId && 
@@ -89,14 +92,14 @@ class Home extends React.Component {
           </Back>
         }
         <BookModal {...newBook} onChange={this.onChangeEdit}
-          show={showModal} toggle={toggle} submit={this.submit}/>
+          show={showModal} toggle={this.toggle} submit={this.submit}/>
         <select value={sort} name='sort' onChange={this.onChange}>
           <option value={0}>A - Z</option>
           <option value={1}>Z - A</option>
           <option value={2}>criação &uarr;</option>
           <option value={3}>criação &darr;</option>
         </select>
-        <button onClick={toggle}>
+        <button onClick={this.toggle}>
           Criar novo
         </button>
         <input value={search} name='search' onChange={this.onChange}

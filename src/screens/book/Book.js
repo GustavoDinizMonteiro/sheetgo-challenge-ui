@@ -9,13 +9,14 @@ import {
   Back,
   Title,
   Label,
+  Button,
   Comment,
   Container,
+  ButtonSpan,
   Description,
   CommentLabel,
   CommentInput,
   CommentAuthor,
-  Button,
 } from './styles'
 
 class Book extends React.Component {
@@ -94,6 +95,15 @@ class Book extends React.Component {
     }
   }
 
+  deleteComment = async(id) => {
+    try {
+      const { book: { id: bookId } } = this.props
+      await this.props.dispatch(books.deleteComment(bookId, id))
+    } catch (err) {
+      console.warn(err)
+    }
+  }
+
   render() {
     const { book } = this.props
     const { showModal, edition } = this.state
@@ -128,12 +138,16 @@ class Book extends React.Component {
         <Description>{book.description}</Description>
         <CommentLabel>Comentários</CommentLabel>
         { book.comments.map(comment => (
-          <React.Fragment>
+          <React.Fragment key={comment.body}>
             <CommentAuthor>{comment.author}</CommentAuthor>
             <span> - </span>
             <span>
               {(new Date(comment.timestamp)).toLocaleDateString()} -
-              {(new Date(comment.timestamp)).toLocaleTimeString()}
+              {(new Date(comment.timestamp)).toLocaleTimeString()} &nbsp;
+              <ButtonSpan>editar</ButtonSpan>
+              <ButtonSpan delete onClick={() => this.deleteComment(comment.id)}>
+                remover
+              </ButtonSpan>
             </span>
             <Comment>{comment.body}</Comment>
           </React.Fragment>

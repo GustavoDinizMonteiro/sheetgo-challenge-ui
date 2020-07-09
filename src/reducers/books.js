@@ -7,10 +7,22 @@ const books = (state = { data: {}, items: {} }, action) => {
       return { ...state }
     
     case states.getAll.success:
+      const categories = JSON.parse(localStorage.getItem('categories'))
+
+      const data = action.data
+        .filter(book => !book.deleted)
+        .map(book => ({
+          ...book,
+          comments: book.comments.filter(comment => !comment.deleted)
+        }))
+        .map(book => ({
+          ...book,
+          category: categories.find(ctg => ctg.id === book.category_id)
+        }))
       return { 
         ...state, 
-        data: groupBy(action.data, book => book.category_id || 0),
-        items: groupBy(action.data, book => book.id) 
+        data: groupBy(data, book => book.category_id || 0),
+        items: groupBy(data, book => book.id) 
       }
     
     default:

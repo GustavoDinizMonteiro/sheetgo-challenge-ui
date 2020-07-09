@@ -82,5 +82,37 @@ export default {
         dispatch(failure(err))
       }
     }
+  },
+
+  updateComment: (bookId, commentId, comment) => {
+    return async(dispatch) => {
+      const start = () => ({ type: states.updateComment.start })
+      const success = data => ({ type: states.getAll.success, data })
+      const failure = err => ({ type: states.updateComment.failure, err })
+      
+      try {
+        dispatch(start())
+        const { data } = await commentsProvider.update(bookId, commentId, comment)
+        dispatch(success(data))
+      } catch (err) {
+        dispatch(failure(err))
+      }
+    }
+  },
+
+  deleteComment: (bookId, commentId) => {
+    return async(dispatch) => {
+      const start = () => ({ type: states.deleteComment.start })
+      const success = data => ({ type: states.getAll.success, data })
+      const failure = err => ({ type: states.deleteComment.failure, err })
+      
+      try {
+        dispatch(start())
+        const { data } = await commentsProvider.delete(bookId, commentId)
+        dispatch(success(data))
+      } catch (err) {
+        dispatch(failure(err))
+      }
+    }
   }
 }

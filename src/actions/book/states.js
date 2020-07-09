@@ -4,10 +4,6 @@ export default {
     success: 'GET_ALL_BOOKS_SUCCESS',
     failure: 'GET_ALL_BOOKS_FAILURE'
   },
-  addComment: {
-    start: 'CREATE_COMMENT_START',
-    failure: 'CREATE_COMMENT_FAILURE'
-  },
   createBook: {
     start: 'CREATE_BOOK_START',
     failure: 'CREATE_BOOK_FAILURE'
@@ -19,5 +15,17 @@ export default {
   deleteBook: {
     start: 'DELETE_BOOK_START',
     failure: 'DELETE_BOOK_FAILURE'
-  }
+  },
+  addComment: {
+    start: 'CREATE_COMMENT_START',
+    failure: 'CREATE_COMMENT_FAILURE'
+  },
+  updateComment: {
+    start: 'UPDATE_COMMENT_START',
+    failure: 'UPDATE_COMMENT_FAILURE'
+  },
+  deleteComment: {
+    start: 'DELETE_COMMENT_START',
+    failure: 'DELETE_COMMENT_FAILURE'
+  },
 }

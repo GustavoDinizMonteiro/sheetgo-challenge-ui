@@ -20,14 +20,7 @@ const localProvider = {
     const books = JSON.parse(localStorage.getItem('books'))
     books.push(book)
     localStorage.setItem('books', JSON.stringify(books))
-
-    const categories = JSON.parse(localStorage.getItem('categories'))
-    return {
-      data: books.map(book => ({
-        ...book,
-        category: categories.find(ctg => ctg.id === book.category_id)
-      }))
-    }
+    return { data: books }
   },
 
   update: async(data) => {
@@ -36,38 +29,24 @@ const localProvider = {
     books = books.map(book => book.id === id ? data: book)
     localStorage.setItem('books', JSON.stringify(books))
 
-    const categories = JSON.parse(localStorage.getItem('categories'))
-    return {
-      data: books.map(book => ({
-        ...book,
-        category: categories.find(ctg => ctg.id === book.category_id)
-      }))
-    }
+    return { data: books }
   },
 
   list: async() => {
     const books = JSON.parse(localStorage.getItem('books'))
-    const categories = JSON.parse(localStorage.getItem('categories'))
-    return {
-      data: books.map(book => ({
-        ...book,
-        category: categories.find(ctg => ctg.id === book.category_id)
-      }))
-    }
+    return { data: books }
   },
 
   delete: async(id) => {
     let books = JSON.parse(localStorage.getItem('books'))
-    books = books.filter(book => book.id !== id)
+    books = books.map(book => {
+      if (book.id === id) {
+        return { ...book, deleted: true }
+      }
+      return book
+    })
     localStorage.setItem('books', JSON.stringify(books))
-
-    const categories = JSON.parse(localStorage.getItem('categories'))
-    return {
-      data: books.map(book => ({
-        ...book,
-        category: categories.find(ctg => ctg.id === book.category_id)
-      }))
-    }
+    return { data: books }
   }
 }
 

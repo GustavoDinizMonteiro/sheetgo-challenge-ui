@@ -68,3 +68,13 @@ export const CommentInput = styled.input`
   width: 90vw;
   font-size: 1.2rem;
 `
+
+export const ButtonSpan = styled.button`
+  border: none;
+  background-color: white;
+  padding: 0px 3px;
+  color: #ec6611;
+  ${props => props.delete && `
+    color: red;
+  `} 
+`

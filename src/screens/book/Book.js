@@ -18,6 +18,7 @@ import {
   CommentInput,
   CommentAuthor,
 } from './styles'
+import Swal from 'sweetalert2'
 
 class Book extends React.Component {
   state = { 
@@ -104,6 +105,16 @@ class Book extends React.Component {
     }
   }
 
+  editComment = async(id, body) => {
+    const { value: comment } = await Swal.fire({
+      title: 'Editar comentário',
+      input: 'text',
+      inputValue: body
+    })
+    const { book: { id: bookId } } = this.props
+    await this.props.dispatch(books.updateComment(bookId, id, comment))
+  } 
+
   render() {
     const { book } = this.props
     const { showModal, edition } = this.state
@@ -144,7 +155,9 @@ class Book extends React.Component {
             <span>
               {(new Date(comment.timestamp)).toLocaleDateString()} -
               {(new Date(comment.timestamp)).toLocaleTimeString()} &nbsp;
-              <ButtonSpan>editar</ButtonSpan>
+              <ButtonSpan onClick={() => this.editComment(comment.id, comment.body)}>
+                editar
+              </ButtonSpan>
               <ButtonSpan delete onClick={() => this.deleteComment(comment.id)}>
                 remover
               </ButtonSpan>

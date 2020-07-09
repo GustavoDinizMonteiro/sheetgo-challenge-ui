@@ -54,6 +54,20 @@ const localProvider = {
         category: categories.find(ctg => ctg.id === book.category_id)
       }))
     }
+  },
+
+  delete: async(id) => {
+    let books = JSON.parse(localStorage.getItem('books'))
+    books = books.filter(book => book.id !== id)
+    localStorage.setItem('books', JSON.stringify(books))
+
+    const categories = JSON.parse(localStorage.getItem('categories'))
+    return {
+      data: books.map(book => ({
+        ...book,
+        category: categories.find(ctg => ctg.id === book.category_id)
+      }))
+    }
   }
 }
 

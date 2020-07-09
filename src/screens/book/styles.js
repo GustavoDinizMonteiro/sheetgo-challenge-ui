@@ -1,5 +1,23 @@
 import styled from 'styled-components'
 
+export const Container = styled.div`
+  margin: 0px 1rem;
+`
+
+export const Button = styled.button`
+  border-radius: 5px;
+  border: gray 1px solid;
+  background-color: white;
+  color: black;
+  padding: 5px 15px;
+  ${props => props.danger && `
+    background-color: red;
+    color: white;
+    border-color red;
+  `}
+  font-weight: bold;
+`
+
 export const Back = styled.button`
   background: transparent;
   font-size: 1rem;

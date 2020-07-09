@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { actions as books } from '../../actions/book'
 import { actions as categories } from '../../actions/category'
 import BookSection from '../../components/book-section'
-import { Back } from './styles'
+import { Back, Button, Row, Input, Select } from './styles'
 import BookModal from 'components/book-modal'
 
 class Home extends React.Component {
@@ -96,17 +96,21 @@ class Home extends React.Component {
         }
         <BookModal {...newBook} onChange={this.onChangeEdit}
           show={showModal} toggle={this.toggle} submit={this.submit}/>
-        <select value={sort} name='sort' onChange={this.onChange}>
-          <option value={0}>A - Z</option>
-          <option value={1}>Z - A</option>
-          <option value={2}>criação &uarr;</option>
-          <option value={3}>criação &darr;</option>
-        </select>
-        <button onClick={this.toggle}>
-          Criar novo
-        </button>
-        <input value={search} name='search' onChange={this.onChange}
-          placeholder='Procure por nome ou por author'/>
+        <Row center>
+          <Input value={search} name='search' onChange={this.onChange}
+            placeholder='Procure por titulo ou por author'/>
+        </Row>
+        <Row>
+          <Select value={sort} name='sort' onChange={this.onChange}>
+            <option value={0}>A - Z</option>
+            <option value={1}>Z - A</option>
+            <option value={2}>criação &uarr;</option>
+            <option value={3}>criação &darr;</option>
+          </Select>
+          <Button onClick={this.toggle}>
+            Criar novo
+          </Button>
+        </Row>
         { this.categories.filter(category => data[category.id])
           .sort().map(category => (
           <BookSection key={category.id} books={this.filter(data[category.id])} sort={this.state.sort}

@@ -51,6 +51,23 @@ export default {
     }
   },
 
+
+  deleteBook: id => {
+    return async(dispatch) => {
+      const start = () => ({ type: states.deleteBook.start })
+      const success = data => ({ type: states.getAll.success, data })
+      const failure = err => ({ type: states.deleteBook.failure, err })
+      
+      try {
+        dispatch(start())
+        const { data } = await provider.delete(id)
+        dispatch(success(data))
+      } catch (err) {
+        dispatch(failure(err))
+      }
+    }
+  },
+
   addComment: (bookId, comment) => {
     return async(dispatch) => {
       const start = () => ({ type: states.addComment.start })

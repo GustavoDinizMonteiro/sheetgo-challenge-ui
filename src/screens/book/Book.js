@@ -1,10 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import BookModal from 'components/book-modal'
 import { actions as books } from '../../actions/book'
 import { actions as categories } from '../../actions/category'
-import { Back, Title, Label, Description, Row, CommentLabel, CommentAuthor, Comment, CommentInput } from './styles'
-import BookModal from 'components/book-modal'
+import { 
+  Row,
+  Back,
+  Title,
+  Label,
+  Comment,
+  Container,
+  Description,
+  CommentLabel,
+  CommentInput,
+  CommentAuthor,
+  Button,
+} from './styles'
 
 class Book extends React.Component {
   state = { 
@@ -72,6 +84,16 @@ class Book extends React.Component {
     }
   }
 
+  delete = async() => {
+    try {
+      const { book: { id } } = this.props
+      await this.props.dispatch(books.deleteBook(id))
+      this.props.history.push('/')
+    } catch (err) {
+      console.warn(err)
+    }
+  }
+
   render() {
     const { book } = this.props
     const { showModal, edition } = this.state
@@ -85,10 +107,14 @@ class Book extends React.Component {
     }
     const getCategory = category => category ? category.name: 'Sem Categoria'
     return (
-      <div>
+      <Container>
         {this.renderBack()}
         <Title>{book.title}</Title>
-        <button onClick={() => this.edit()}>editar</button>
+        <Row>
+          <Button onClick={() => this.edit()}>editar</Button>
+          <Button danger onClick={() => this.delete()}>deletar</Button>
+
+        </Row>
         <BookModal {...edition} onChange={this.onChangeEdit}
           show={showModal} toggle={this.toggle} submit={this.update}/>
         <Row>
@@ -116,7 +142,7 @@ class Book extends React.Component {
           value={this.state.comment} 
           onChange={event => this.setState({ comment: event.target.value })}
           onKeyDown={this._handleKeyDown}/>
-      </div>
+      </Container>
     )
   }
 }

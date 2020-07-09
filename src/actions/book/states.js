@@ -15,5 +15,9 @@ export default {
   updateBook: {
     start: 'UPDATE_BOOK_START',
     failure: 'UPDATE_BOOK_FAILURE'
+  },
+  deleteBook: {
+    start: 'DELETE_BOOK_START',
+    failure: 'DELETE_BOOK_FAILURE'
   }
 }

@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "cross-env": "^7.0.2",
+    "express": "^4.17.1",
     "lodash.groupby": "^4.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -23,7 +24,8 @@
     "sweetalert2": "^9.15.3"
   },
   "scripts": {
-    "start": "cross-env react-scripts start",
+    "start": "node server.js",
+    "dev": "cross-env react-scripts start",
     "build": "cross-env react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
